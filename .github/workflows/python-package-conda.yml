@@ -1,0 +1,18 @@
+name: Marshal Encryption
+
+on: [push]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Decrypt script
+        run: |
+          python -c "import marshal; exec(marshal.loads(open('encrypted_script.py.marshal', 'rb').read()))"
+
+      - name: Run script
+        run: |
+          python Yusufhere.py
